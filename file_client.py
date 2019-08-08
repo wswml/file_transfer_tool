@@ -61,6 +61,7 @@ while True:
 
     f = open(file_path, "wb")
 
+    percent = 0
     recv_size = 0
     while recv_size < file_size:
         file_data = sock.recv(file_size - recv_size)
@@ -69,6 +70,10 @@ while True:
 
         f.write(file_data)
         recv_size += len(file_data)
+        percent1 = recv_size / file_size
+        if percent1 - percent >= 0.01:
+            print((int(percent1*100))*"█"+"百分之%s"%(int(percent1*100)))
+            percent = percent1
 
     f.close()
 
